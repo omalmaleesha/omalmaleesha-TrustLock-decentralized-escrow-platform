@@ -1,24 +1,26 @@
-TrustLock - Decentralized Escrow Platform
+# TrustLock - Decentralized Escrow Platform
+
 TrustLock is a blockchain-based escrow platform that enables secure, trustless transactions between buyers and sellers without relying on third-party intermediaries. Built on Ethereum, it uses smart contracts to hold and release funds based on predefined conditions, ensuring transparency and fairness.
-📖 Overview
 
-Purpose: Facilitate safe peer-to-peer transactions for goods, services, or digital assets.
-Key Features:
-Create escrow agreements with customizable deadlines.
-Confirm delivery to release funds to the seller.
-Issue refunds by the seller or claim automatic refunds after a timeout.
-MetaMask wallet integration for seamless blockchain interaction.
+## 📖 Overview
 
+**Purpose**: Facilitate safe peer-to-peer transactions for goods, services, or digital assets.
 
-Tech Stack:
-Smart Contract: Solidity (deployed on Ethereum Sepolia testnet)
-Frontend: React, Ethers.js, Tailwind CSS
-Development: Hardhat for contract development and testing
-Deployment: Free hosting via GitHub Pages or Vercel
+**Key Features**:
+- Create escrow agreements with customizable deadlines.
+- Confirm delivery to release funds to the seller.
+- Issue refunds by the seller or claim automatic refunds after a timeout.
+- MetaMask wallet integration for seamless blockchain interaction.
 
+**Tech Stack**:
+- **Smart Contract**: Solidity (deployed on Ethereum Sepolia testnet)
+- **Frontend**: React, Ethers.js, Tailwind CSS
+- **Development**: Hardhat for contract development and testing
+- **Deployment**: Free hosting via GitHub Pages or Vercel
 
+## 🛠️ Project Structure
 
-🛠️ Project Structure
+```
 TrustLock/
 ├── contracts/              # Smart contract files
 │   └── TrustLock.sol       # Escrow smart contract
@@ -37,146 +39,165 @@ TrustLock/
 ├── scripts/                # Deployment scripts
 │   └── deploy.js           # Script to deploy contract
 └── README.md               # Project documentation
+```
 
-🚀 Getting Started
-Prerequisites
+## 🚀 Getting Started
 
-Node.js: Install from nodejs.org (v16 or higher).
-MetaMask: Browser extension for wallet integration (metamask.io).
-Infura: Free API for Ethereum testnet access (infura.io).
-Sepolia Testnet ETH: Obtain free test ETH from Sepolia Faucet.
-Code Editor: VS Code or any preferred editor.
+### Prerequisites
 
-Installation
+- Node.js: Install from [nodejs.org](https://nodejs.org) (v16 or higher).
+- MetaMask: Browser extension for wallet integration ([metamask.io](https://metamask.io)).
+- Infura: Free API for Ethereum testnet access ([infura.io](https://infura.io)).
+- Sepolia Testnet ETH: Obtain free test ETH from Sepolia Faucet.
+- Code Editor: VS Code or any preferred editor.
 
-Clone the Repository:
+### Installation
+
+#### Clone the Repository:
+
+```bash
 git clone https://github.com/YOUR_USERNAME/TrustLock.git
 cd TrustLock
+```
 
+#### Set Up Smart Contract:
 
-Set Up Smart Contract:
+```bash
+npm install
+```
 
-Install Hardhat dependencies:npm install
+Configure `hardhat.config.js`:
 
-
-Configure hardhat.config.js with your Infura Project ID and MetaMask private key:networks: {
+```js
+networks: {
   sepolia: {
     url: "https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID",
     accounts: ["YOUR_METAMASK_PRIVATE_KEY"]
   }
 }
+```
 
+Deploy the contract:
 
-Deploy the contract to Sepolia:npx hardhat run scripts/deploy.js --network sepolia
+```bash
+npx hardhat run scripts/deploy.js --network sepolia
+```
 
 Note the deployed contract address.
 
+#### Set Up Frontend:
 
-Set Up Frontend:
-
-Navigate to the frontend directory:cd frontend
+```bash
+cd frontend
 npm install
+```
 
+Update `frontend/src/App.js`:
 
-Update frontend/src/App.js with your deployed contract address:const contractAddress = "YOUR_DEPLOYED_CONTRACT_ADDRESS";
+```js
+const contractAddress = "YOUR_DEPLOYED_CONTRACT_ADDRESS";
+```
 
+Copy the contract ABI from `artifacts/contracts/TrustLock.sol/TrustLock.json` to `frontend/src/contractABI.json`.
 
-Copy the contract ABI from artifacts/contracts/TrustLock.sol/TrustLock.json to frontend/src/contractABI.json.
+#### Run Locally:
 
-
-Run Locally:
+```bash
 npm start
+```
 
-Open http://localhost:3000 in your browser.
+Visit [http://localhost:3000](http://localhost:3000).
 
+## 📦 Deployment
 
-Deployment
+### Build the Frontend:
 
-Build the Frontend:
+```bash
 cd frontend
 npm run build
+```
 
+### Deploy to Free Hosting
 
-Deploy to Free Hosting:
+#### GitHub Pages:
 
-GitHub Pages:
-Install gh-pages:npm install --save-dev gh-pages
+```bash
+npm install --save-dev gh-pages
+```
 
+Add to `frontend/package.json`:
 
-Add to frontend/package.json:"homepage": "https://YOUR_USERNAME.github.io/TrustLock",
+```json
+"homepage": "https://YOUR_USERNAME.github.io/TrustLock",
 "scripts": {
   "predeploy": "npm run build",
   "deploy": "gh-pages -d build"
 }
+```
 
+Deploy:
 
-Deploy:npm run deploy
+```bash
+npm run deploy
+```
 
+#### Vercel:
 
+- Sign up at [vercel.com](https://vercel.com).
+- Import your GitHub repo and follow the deployment wizard.
 
+## 📚 Usage
 
-Vercel:
-Sign up at vercel.com (free tier).
-Import your GitHub repo and follow the deployment wizard.
+### Connect Wallet
 
+- Open the app in your browser.
+- Click "Connect Wallet" and approve MetaMask (ensure you're on the Sepolia testnet).
 
+### Create Escrow
 
+- Enter the seller's Ethereum address, amount (in ETH), and deadline (in seconds).
+- Submit to create an escrow agreement.
 
+### Manage Escrows
 
-📚 Usage
+- View your escrows in the dashboard.
+- **Buyers**: Confirm delivery or claim a refund.
+- **Sellers**: Issue a refund if needed.
 
-Connect Wallet:
+## 🔍 Example Workflow
 
-Open the app in your browser.
-Click "Connect Wallet" and approve MetaMask (ensure you're on the Sepolia testnet).
+1. **Buyer**: Creates an escrow for 0.1 ETH with a 1-day deadline.
+2. **Seller**: Ships the product or delivers the service.
+3. **Buyer**: Confirms delivery, releasing funds to the seller.
+4. **Timeout**: Buyer can claim a refund if no confirmation.
 
+## 🛡️ Security Notes
 
-Create Escrow:
+- Test thoroughly on Sepolia before mainnet deployment.
+- Never share your MetaMask private key.
+- Audit the smart contract before production use.
 
-Enter the seller's Ethereum address, amount (in ETH), and deadline (in seconds).
-Submit to create an escrow agreement.
+## 🌟 Future Improvements
 
+- Add dispute resolution via DAO/arbitrator.
+- Implement a user reputation system.
+- Support multiple tokens (ERC-20).
+- Enhance UI with features like transaction history.
 
-Manage Escrows:
+## 🤝 Contributing
 
-View your escrows in the dashboard.
-Buyers: Confirm delivery to release funds or claim a timeout refund if the deadline passes.
-Sellers: Issue a refund if needed.
+1. Fork the repo.
+2. Create a new branch: `git checkout -b feature/YourFeature`
+3. Commit your changes: `git commit -m 'Add YourFeature'`
+4. Push the branch: `git push origin feature/YourFeature`
+5. Open a pull request.
 
+## 📜 License
 
+Licensed under the MIT License. See the `LICENSE` file.
 
-🔍 Example Workflow
+## 📬 Contact
 
-Buyer: Creates an escrow for 0.1 ETH with a 1-day deadline.
-Seller: Ships the product or delivers the service.
-Buyer: Confirms delivery, releasing funds to the seller.
-Timeout: If the deadline passes without confirmation, the buyer can claim a refund.
-
-🛡️ Security Notes
-
-Test thoroughly on Sepolia before deploying to mainnet.
-Never share your MetaMask private key publicly.
-Audit the smart contract for production use.
-
-🌟 Future Improvements
-
-Add dispute resolution via a DAO or arbitrator panel.
-Implement a reputation system for users.
-Support multiple cryptocurrencies or ERC-20 tokens.
-Enhance the UI with advanced features like transaction history.
-
-🤝 Contributing
-Contributions are welcome! To contribute:
-
-Fork the repository.
-Create a new branch (git checkout -b feature/YourFeature).
-Commit your changes (git commit -m 'Add YourFeature').
-Push to the branch (git push origin feature/YourFeature).
-Open a pull request.
-
-📜 License
-This project is licensed under the MIT License. See the LICENSE file for details.
-📬 Contact
 For questions or feedback, open an issue on GitHub or contact [YOUR_EMAIL_OR_SOCIAL_MEDIA].
 
-Built with 💻 and ☕ by SimpleEducation.
+Built with 💻 and ☕ by **SimpleEducation**.
